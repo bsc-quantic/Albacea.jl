@@ -1,0 +1,10 @@
+name = "Albacea"
+uuid = "b7eb675e-0b4b-4697-b10d-3f3487e0fa0a"
+authors = ["Sergio Sánchez Ramírez <sergio.sanchez.ramirez+git@bsc.es>"]
+version = "0.1.0"
+
+[deps]
+Expronicon = "6b7a57c9-7cc1-4fdf-b7f5-e857abae3636"
+
+[compat]
+Expronicon = "0.10"
