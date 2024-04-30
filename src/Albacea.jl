@@ -2,7 +2,7 @@ module Albacea
 
 using Expronicon
 
-export @testate, @will
+export @testate, @will, concreteof, abstractof
 
 function abstractof end
 function concreteof end
