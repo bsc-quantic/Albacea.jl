@@ -23,7 +23,7 @@ macro testate(def)
     ConcreteSuperClass = isnothing(AbstractSuperClass) ? nothing : Symbol(jlstruct.supertype, :_Concrete)
 
     quote
-        $(
+        Core.@__doc__ $(
             if isnothing(jlstruct.supertype)
                 :(abstract type $AbstractClass end)
             else

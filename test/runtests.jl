@@ -2,6 +2,11 @@ using Test
 using Albacea
 
 # 1
+"""
+    A
+
+Some mock singleton struct.
+"""
 @testate struct A end
 
 @test hasproperty(@__MODULE__, :A)
@@ -17,6 +22,11 @@ using Albacea
 @test A(A()) === A()
 
 # 2
+"""
+    B <: A
+
+Some mock struct that inherits from `A`.
+"""
 @testate struct B <: A
     x::Int
 end
@@ -37,6 +47,11 @@ end
 @test A(B(A(), 1)) === A()
 
 # 3
+"""
+    C <: B
+
+Some mock struct that inherits from `B`.
+"""
 @testate struct C <: B
     y::Bool
 end
@@ -56,3 +71,27 @@ end
 
 @test B(C(B(A(), 1), true)) == B(A(), 1)
 @test A(C(B(A(), 1), true)) === A()
+
+# 3
+"""
+    D <: C
+
+Some mock struct that inherits from `C`.
+"""
+@testate struct D <: C end
+
+@test hasproperty(@__MODULE__, :D)
+@test isabstracttype(D)
+@test hasproperty(@__MODULE__, :D_Concrete)
+@test isstructtype(D_Concrete)
+@test D_Concrete <: C
+@test D <: B
+
+@test concreteof(D) == D_Concrete
+@test abstractof(D_Concrete) == D
+
+@test D(C(B(A(), 1), true)) == D_Concrete(C(B(A(), 1), true))
+@test D(C(C(B(A(), 1), true))) == D(C(B(A(), 1), true))
+
+@test B(D(C(B(A(), 1), true))) == B(A(), 1)
+@test A(D(C(B(A(), 1), true))) === A()
